@@ -1,109 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Portfolio of M. Hassan Rehan — aspiring front-end developer." />
-  <title>M. Hassan Rehan | Front-End Developer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>M. Hassan Rehan | Front-End Developer</title>
+<meta name="description" content="Portfolio of M. Hassan Rehan, a front-end developer building clean, responsive websites with HTML, CSS and JavaScript.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light;--bg:#FBF9FF;--surface:#FFFFFF;--ink:#1B1033;--muted:#5E5578;--line:#E6DDF7;--accent:#7B3FF2;--accent-ink:#FFFFFF;--signal:#FF7A59;
+  --display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;--body:'DM Sans','Segoe UI',system-ui,sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 76px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.65 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1120px,100% - 2.5rem);margin-inline:auto}
+h1,h2,h3{font-family:var(--display);line-height:1.05;margin:0;letter-spacing:-.025em}
+h2{font-size:clamp(2rem,5vw,3.25rem);font-weight:800}
+p{margin:0}
+.muted{color:var(--muted)}
+section{padding:clamp(4rem,9vw,7rem) 0}
+
+/* header */
+header{position:sticky;top:0;z-index:20;padding:calc(env(safe-area-inset-top,0px) + 12px) 0 0;pointer-events:none}
+.nav{position:relative;pointer-events:auto;display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 .6rem 0 1.3rem;background:color-mix(in srgb,var(--surface) 80%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px;box-shadow:0 12px 32px -14px rgba(60,20,140,.45)}
+.logo{font:800 1.4rem var(--display);text-decoration:none}
+.logo span{color:var(--accent)}
+nav ul{display:flex;gap:.25rem;list-style:none;margin:0;padding:0;align-items:center}
+nav a{text-decoration:none;padding:.5rem .8rem;border-radius:99px;font-weight:500;font-size:.97rem}
+nav a:hover{background:color-mix(in srgb,var(--accent) 15%,transparent)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.4rem;border-radius:99px;font-weight:700;text-decoration:none;border:2px solid var(--ink);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.cv{border:2px solid var(--line)}
+#menu{display:none;background:none;border:2px solid var(--line);border-radius:10px;width:44px;height:44px;color:var(--ink);font-size:1.3rem;cursor:pointer}
+@media(max-width:760px){
+  #menu{display:block}
+  nav ul{position:absolute;left:0;right:0;top:calc(100% + 10px);flex-direction:column;align-items:stretch;background:var(--surface);border:1px solid var(--line);border-radius:26px;box-shadow:0 20px 40px -18px rgba(60,20,140,.5);padding:.75rem;display:none}
+  nav ul.open{display:flex}
+  nav a{padding:.85rem 1rem}
+}
+
+/* hero */
+.hero{padding-top:clamp(3rem,7vw,5.5rem)}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center}
+.status{display:inline-flex;align-items:center;gap:.6rem;background:var(--surface);border:1px solid var(--line);padding:.4rem .9rem;border-radius:99px;font-size:.92rem;margin-bottom:1.5rem}
+.dot{width:9px;height:9px;border-radius:50%;background:#22C55E;box-shadow:0 0 0 4px rgba(34,197,94,.2)}
+h1{font-size:clamp(2.8rem,8vw,5.6rem);font-weight:800}
+.hero .lead{font-size:1.2rem;max-width:34rem;margin:1.5rem 0 2rem;color:var(--muted)}
+.cta{display:flex;gap:.75rem;flex-wrap:wrap}
+.hero-meta{display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:2.25rem;color:var(--muted);font-size:.95rem}
+.hero-meta b{color:var(--ink);font-family:var(--display);font-size:1.6rem;display:block;line-height:1}
+
+/* code card - the memorable element */
+.code{background:#FFFFFF;border:1px solid var(--line);color:#2A1B4D;border-radius:18px;box-shadow:0 30px 60px -30px rgba(20,40,120,.55);overflow:hidden;font:500 .95rem/1.7 ui-monospace,Menlo,Consolas,monospace;transform:rotate(1.5deg)}
+.code .bar{display:flex;gap:7px;align-items:center;padding:.8rem 1rem;background:#F1EAFF;color:#6B5C90;font-size:.8rem}
+.code .bar i{width:11px;height:11px;border-radius:50%;background:#FF5F57}
+.code .bar i:nth-child(2){background:#FEBC2E}.code .bar i:nth-child(3){background:#28C840}
+.code .bar span{margin-left:.6rem}
+.code pre{margin:0;padding:1.25rem 1.4rem;white-space:pre-wrap;overflow-x:auto}
+.k{color:#7B3FF2}.s{color:#D9480F}.c{color:#8A7DB0}
+.caret{display:inline-block;width:8px;height:1em;background:#7B3FF2;vertical-align:-2px;animation:blink 1.1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+@media(max-width:860px){.hero-grid{grid-template-columns:1fr}.code{transform:none}}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+.about p{margin-top:1.25rem;max-width:36rem}
+.facts{display:grid;gap:1rem;align-content:start}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1.25rem 1.4rem}
+.fact small{color:var(--muted);display:block}
+.fact strong{font:700 1.2rem var(--display)}
+@media(max-width:760px){.about-grid{grid-template-columns:1fr}}
+
+/* skills */
+.skills-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.5rem}
+.skill{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1.4rem}
+.skill b{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--accent);color:var(--accent-ink);font:800 .95rem var(--display);margin-bottom:1rem}
+.skill h3{font-size:1.25rem;margin-bottom:.4rem}
+.skill p{font-size:.95rem;color:var(--muted);line-height:1.5}
+.tools{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.75rem;align-items:center}
+.tools span{border:1px solid var(--line);background:var(--surface);padding:.4rem .9rem;border-radius:99px;font-size:.95rem}
+@media(max-width:900px){.skills-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.skills-grid{grid-template-columns:1fr}}
+
+/* projects */
+.proj-list{display:grid;gap:2rem;margin-top:2.5rem}
+.proj{display:grid;grid-template-columns:1.2fr .8fr;gap:2rem;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:1.25rem}
+.proj:nth-child(even){grid-template-columns:.8fr 1.2fr}
+.proj:nth-child(even) .shot{order:2}
+.shot{display:block;border-radius:14px;overflow:hidden;border:1px solid var(--line);text-decoration:none}
+.shot .chrome{background:#E4E9F2;padding:.5rem .8rem;display:flex;gap:5px}
+.shot .chrome i{width:8px;height:8px;border-radius:50%;background:#B5BFD1}
+.art{aspect-ratio:16/9;display:grid;place-items:center;text-align:center;padding:1rem;transition:transform .4s}
+.shot:hover .art{transform:scale(1.03)}
+.shot{overflow:hidden}
+.art b{display:block;font-size:clamp(1.3rem,3.4vw,2.4rem);line-height:1;letter-spacing:-.02em}
+.art small{display:block;margin-top:.6rem;opacity:.75;font-size:.8rem}
+.a1{background:#14110F;color:#E7C98A;font-family:Georgia,'Times New Roman',serif}
+.a2{background:#0F2A4A;color:#fff;font-family:var(--display)}
+.a3{background:#EDE7DD;color:#2A2420;font-family:Georgia,serif;font-style:italic}
+.a4{background:linear-gradient(135deg,#FFE9D6,#FFD1C2);color:#3A1F18;font-family:var(--display)}
+.info h3{font-size:clamp(1.5rem,3vw,2rem)}
+.info .type{color:var(--muted);margin:.35rem 0 1rem}
+.chips{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.chips span{font-size:.82rem;padding:.25rem .7rem;border-radius:99px;background:var(--bg);border:1px solid var(--line)}
+.info .btn{padding:.6rem 1.1rem;font-size:.95rem}
+@media(max-width:820px){.proj,.proj:nth-child(even){grid-template-columns:1fr}.proj:nth-child(even) .shot{order:0}}
+
+/* contact */
+.contact{background:#EFE6FF;border:1px solid var(--line);color:var(--ink);border-radius:28px;padding:clamp(2rem,6vw,4.5rem)}
+.contact h2{max-width:14ch}
+.contact .muted{color:var(--muted);margin-top:1rem;max-width:32rem}
+.links{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;margin-top:2.25rem}
+.links a{display:block;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1rem 1.2rem;transition:background .2s}
+.links a:hover{border-color:var(--accent)}
+.links small{display:block;opacity:.65}
+.links b{overflow-wrap:anywhere}
+@media(max-width:620px){.links{grid-template-columns:1fr}}
+footer{padding:2rem 0 3rem;color:var(--muted);font-size:.95rem}
+footer .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
 </head>
 <body>
-  <header class="site-header">
-    <nav class="nav container" aria-label="Main navigation">
-      <a class="logo" href="#home">HR<span>.</span></a>
-      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
-      <div class="nav-links">
-        <a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#contact">Contact</a>
-        <a class="nav-cta" href="assets/M_Hassan_Rehan_Resume_Updated.pdf" target="_blank" rel="noopener">View CV ↗</a>
-      </div>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#home">HR<span>.</span></a>
+    <button id="menu" aria-label="Open menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <ul id="links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a class="btn cv" href="assets/M_Hassan_Rehan_Resume_Updated.pdf" target="_blank" rel="noopener">View CV</a></li>
+      </ul>
     </nav>
-  </header>
+  </div>
+</header>
 
-  <main>
-    <section class="hero container" id="home">
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="status-dot"></span> OPEN TO LEARNING & OPPORTUNITIES</p>
-        <h1>Hi, I'm <span>M. Hassan<br class="desktop-break"> Rehan.</span></h1>
-        <h2>Front-end developer in the making.</h2>
-        <p class="hero-description">I build clean, responsive websites and enjoy turning ideas into useful digital experiences. Currently learning, building, and improving one project at a time.</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#projects">Explore my work <span>↗</span></a>
-          <a class="button button-secondary" href="#contact">Let's connect</a>
+<main id="home">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="status"><span class="dot"></span>Open to learning and opportunities</p>
+      <h1>Hi, I’m M. Hassan Rehan. I build clean, responsive websites.</h1>
+      <p class="lead">Front-end developer in Pakistan. I turn ideas into fast, easy-to-use sites, and I ship every project live.</p>
+      <div class="cta">
+        <a class="btn primary" href="#projects">See my work</a>
+        <a class="btn" href="#contact">Get in touch</a>
+      </div>
+      <div class="hero-meta">
+        <div><b>4</b>live projects</div>
+        <div><b>3</b>core languages</div>
+        <div><b>Aptech</b>ADSE student</div>
+      </div>
+    </div>
+    <div class="code" aria-hidden="true">
+      <div class="bar"><i></i><i></i><i></i><span>developer.js</span></div>
+<pre><span class="k">const</span> developer = {
+  name: <span class="s">'Hassan Rehan'</span>,
+  role: <span class="s">'Front-end Dev'</span>,
+  stack: [<span class="s">'HTML'</span>, <span class="s">'CSS'</span>, <span class="s">'JavaScript'</span>],
+  learning: [<span class="s">'UI Development'</span>],
+  openToWork: <span class="k">true</span>
+};
+<span class="c">// always getting better</span><span class="caret"></span></pre>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="wrap about-grid">
+    <div>
+      <h2>Building my skills, one line at a time.</h2>
+      <p>I’m a student finishing my Matriculation while studying ADSE at Aptech. I care about front-end development, thoughtful design, and sites that work smoothly on every device. I’m still growing as a developer, and I learn fastest by building real things and publishing them.</p>
+    </div>
+    <div class="facts">
+      <div class="fact"><small>Education</small><strong>Matriculation (in progress)</strong></div>
+      <div class="fact"><small>Professional learning</small><strong>ADSE at Aptech (in progress)</strong></div>
+      <div class="fact"><small>Focus</small><strong>Responsive front-end websites</strong></div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <h2>My current toolkit.</h2>
+    <div class="skills-grid">
+      <div class="skill"><b>5</b><h3>HTML</h3><p>Semantic structure and accessible page layouts.</p></div>
+      <div class="skill"><b>#</b><h3>CSS</h3><p>Responsive layouts, styling, and visual polish.</p></div>
+      <div class="skill"><b>JS</b><h3>JavaScript</h3><p>Interactive features and browser-side logic.</p></div>
+      <div class="skill"><b>jq</b><h3>jQuery</h3><p>DOM manipulation and lightweight interactions.</p></div>
+    </div>
+    <div class="tools"><span class="muted" style="border:0;background:none;padding-left:0">Also familiar with</span><span>Git</span><span>GitHub</span><span>MS Office</span><span>Canva</span></div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <h2>Projects I’ve built and published.</h2>
+    <p class="muted" style="margin-top:1rem">Every project is live. Open one to try it yourself.</p>
+    <div class="proj-list">
+      <article class="proj">
+        <a class="shot" href="https://alberto-watch-company-plum.vercel.app/" target="_blank" rel="noopener" aria-label="Open Alberto Watch Company">
+          <div class="chrome"><i></i><i></i><i></i></div>
+          <div class="art a1"><div><b>ALBERTO</b><small>Time, refined.</small></div></div>
+        </a>
+        <div class="info">
+          <h3>Alberto Watch Company</h3>
+          <p class="type">A watch brand website with a premium, product-first feel.</p>
+          <div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <a class="btn" href="https://alberto-watch-company-plum.vercel.app/" target="_blank" rel="noopener">View live site ↗</a>
         </div>
-        <div class="hero-meta"><span>📍 Pakistan</span><span>HTML · CSS · JavaScript</span></div>
-      </div>
-      <div class="hero-art" aria-label="Decorative developer illustration">
-        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
-        <div class="profile-card">
-          <div class="card-top"><span class="window-dots">● ● ●</span><span>developer.js</span></div>
-          <div class="code-lines">
-            <p><span class="code-purple">const</span> developer = {</p>
-            <p class="indent"><span class="code-blue">name</span>: <span class="code-green">'Hassan Rehan'</span>,</p>
-            <p class="indent"><span class="code-blue">role</span>: <span class="code-green">'Front-end Dev'</span>,</p>
-            <p class="indent"><span class="code-blue">curious</span>: <span class="code-orange">true</span>,</p>
-            <p class="indent"><span class="code-blue">learning</span>: [</p>
-            <p class="indent double"><span class="code-green">'JavaScript'</span>,</p>
-            <p class="indent double"><span class="code-green">'UI Development'</span></p>
-            <p class="indent">]</p><p>};</p>
-            <p class="code-comment">// always getting better ✨</p>
-          </div>
+      </article>
+      <article class="proj">
+        <a class="shot" href="https://nf-enterpriser.netlify.app/" target="_blank" rel="noopener" aria-label="Open NF Enterpriser">
+          <div class="chrome"><i></i><i></i><i></i></div>
+          <div class="art a2"><div><b>Built on trust.</b><small>NF Enterpriser</small></div></div>
+        </a>
+        <div class="info">
+          <h3>NF Enterpriser</h3>
+          <p class="type">A business website that presents services clearly and builds credibility.</p>
+          <div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <a class="btn" href="https://nf-enterpriser.netlify.app/" target="_blank" rel="noopener">View live site ↗</a>
         </div>
-        <div class="floating-tag tag-html">HTML5</div><div class="floating-tag tag-css">CSS3</div><div class="floating-tag tag-js">JS</div>
-        <div class="hero-spark spark-one">✳</div><div class="hero-spark spark-two">✦</div>
-      </div>
-    </section>
-
-    <section class="stats container" aria-label="Quick facts">
-      <div><strong>04</strong><span>Featured projects</span></div><div><strong>04+</strong><span>Core web tools</span></div><div><strong>100%</strong><span>Growth mindset</span></div>
-    </section>
-
-    <section class="section container" id="about">
-      <div class="section-heading"><p class="eyebrow">A LITTLE ABOUT ME</p><h2>Building my skills,<br><span>one line at a time.</span></h2></div>
-      <div class="about-grid">
-        <p class="about-text">I'm M. Hassan Rehan, a student currently completing my Matriculation and pursuing ADSE at Aptech. I’m interested in front-end development, thoughtful design, and creating websites that work smoothly across devices. I’m still growing as a developer and always ready to learn something new.</p>
-        <div class="about-details">
-          <div><span class="detail-icon">⌁</span><p><small>EDUCATION</small><strong>Matriculation — In progress</strong></p></div>
-          <div><span class="detail-icon">⌘</span><p><small>PROFESSIONAL LEARNING</small><strong>ADSE at Aptech — In progress</strong></p></div>
-          <div><span class="detail-icon">↗</span><p><small>FOCUS</small><strong>Responsive front-end websites</strong></p></div>
+      </article>
+      <article class="proj">
+        <a class="shot" href="https://seam-house.netlify.app/" target="_blank" rel="noopener" aria-label="Open Seam House">
+          <div class="chrome"><i></i><i></i><i></i></div>
+          <div class="art a3"><div><b>Seam House</b><small>Style that fits you</small></div></div>
+        </a>
+        <div class="info">
+          <h3>Seam House</h3>
+          <p class="type">A fashion and clothing website with an editorial look.</p>
+          <div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <a class="btn" href="https://seam-house.netlify.app/" target="_blank" rel="noopener">View live site ↗</a>
         </div>
-      </div>
-    </section>
+      </article>
+      <article class="proj">
+        <a class="shot" href="https://shopnest-ecommerce-web.netlify.app/" target="_blank" rel="noopener" aria-label="Open ShopNest">
+          <div class="chrome"><i></i><i></i><i></i></div>
+          <div class="art a4"><div><b>shopnest.</b><small>Find your everyday favorites</small></div></div>
+        </a>
+        <div class="info">
+          <h3>ShopNest</h3>
+          <p class="type">An e-commerce storefront for browsing and shopping everyday products.</p>
+          <div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <a class="btn" href="https://shopnest-ecommerce-web.netlify.app/" target="_blank" rel="noopener">View live site ↗</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
 
-    <section class="section skills-section" id="skills"><div class="container">
-      <div class="section-heading"><p class="eyebrow">WHAT I WORK WITH</p><h2>My current <span>toolkit.</span></h2></div>
-      <div class="skills-grid">
-        <article class="skill-card"><div class="skill-symbol orange">5</div><h3>HTML</h3><p>Semantic structure and accessible page layouts.</p></article>
-        <article class="skill-card"><div class="skill-symbol blue">#</div><h3>CSS</h3><p>Responsive layouts, styling, and visual polish.</p></article>
-        <article class="skill-card"><div class="skill-symbol yellow">JS</div><h3>JavaScript</h3><p>Interactive features and browser-side logic.</p></article>
-        <article class="skill-card"><div class="skill-symbol purple">jq</div><h3>jQuery</h3><p>DOM manipulation and lightweight interactions.</p></article>
+<section id="contact" style="padding-top:0">
+  <div class="wrap">
+    <div class="contact">
+      <h2>Have a project in mind? Let’s talk.</h2>
+      <p class="muted">I’m happy to connect, share ideas, and learn from new people. Email is the fastest way to reach me.</p>
+      <div class="links">
+        <a href="mailto:h19490488@gmail.com"><small>Email</small><b>h19490488@gmail.com</b></a>
+        <a href="tel:+923373042493"><small>Phone</small><b>0337-3042493</b></a>
+        <a href="https://github.com/hassanrehan488" target="_blank" rel="noopener"><small>GitHub</small><b>github.com/hassanrehan488</b></a>
+        <a href="https://linkedin.com/in/muhammad-hassan-rehan-b06a6a420" target="_blank" rel="noopener"><small>LinkedIn</small><b>Connect with me</b></a>
       </div>
-      <div class="tools-row"><span>ALSO FAMILIAR WITH</span><div><b>Git</b><b>GitHub</b><b>MS Office</b><b>Canva</b></div></div>
-    </div></section>
+    </div>
+  </div>
+</section>
+</main>
 
-    <section class="section container" id="projects">
-      <div class="section-heading project-heading"><div><p class="eyebrow">SELECTED WORK</p><h2>Projects I've <span>worked on.</span></h2></div><p class="heading-note">A few websites I've built and published. Open any project to see it live.</p></div>
-      <div class="projects-grid">
-        <article class="project-card"><div class="project-preview watch-preview"><div class="preview-label">ALBERTO / WATCH CO.</div><div class="watch-face"><div class="watch-hand"></div></div><span class="preview-caption">TIME, REFINED.</span></div><div class="project-info"><div><h3>Alberto Watch Company</h3><p>Watch brand website</p></div><a href="https://alberto-watch-company-plum.vercel.app/" target="_blank" rel="noopener" aria-label="Open Alberto Watch Company">↗</a></div><div class="project-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div></article>
-        <article class="project-card"><div class="project-preview nf-preview"><span class="nf-mark">NF.</span><div class="nf-copy">BUILT ON<br><b>TRUST.</b></div><div class="nf-line"></div><span class="preview-caption">NF ENTERPRISER</span></div><div class="project-info"><div><h3>NF Enterpriser</h3><p>Business website</p></div><a href="https://nf-enterpriser.netlify.app/" target="_blank" rel="noopener" aria-label="Open NF Enterpriser">↗</a></div><div class="project-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div></article>
-        <article class="project-card"><div class="project-preview seam-preview"><span class="seam-small">CRAFTED WITH CARE</span><div class="seam-title">SEAM<br><i>HOUSE</i></div><div class="seam-stitch"></div><span class="preview-caption">STYLE THAT FITS YOU</span></div><div class="project-info"><div><h3>Seam House</h3><p>Fashion / clothing website</p></div><a href="https://seam-house.netlify.app/" target="_blank" rel="noopener" aria-label="Open Seam House">↗</a></div><div class="project-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div></article>
-        <article class="project-card"><div class="project-preview shop-preview"><div class="shop-top">shop<span>nest.</span><b>☰</b></div><div class="shop-hero"><span>FIND YOUR<br><strong>EVERYDAY<br>FAVORITES.</strong></span><div class="shop-bag">▱</div></div><span class="preview-caption">A LITTLE SHOP FOR EVERYTHING</span></div><div class="project-info"><div><h3>ShopNest</h3><p>E-commerce website</p></div><a href="https://shopnest-ecommerce-web.netlify.app/" target="_blank" rel="noopener" aria-label="Open ShopNest">↗</a></div><div class="project-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div></article>
-      </div>
-    </section>
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr">2026</span> M. Hassan Rehan. Designed and built by me.</span>
+    <a href="assets/M_Hassan_Rehan_Resume_Updated.pdf" target="_blank" rel="noopener">View CV</a>
+  </div>
+</footer>
 
-    <section class="contact-section" id="contact"><div class="container contact-grid">
-      <div><p class="eyebrow">HAVE A PROJECT IN MIND?</p><h2>Let's make something<br><span>good together.</span></h2><p class="contact-copy">I'm always happy to connect, share ideas, and learn from new people.</p><a class="button button-primary" href="mailto:h19490488@gmail.com">Email me <span>↗</span></a></div>
-      <div class="contact-links">
-        <a href="mailto:h19490488@gmail.com"><span class="contact-icon">✉</span><span><small>EMAIL</small><strong>h19490488@gmail.com</strong></span><b>↗</b></a>
-        <a href="tel:+923373042493"><span class="contact-icon">⌕</span><span><small>PHONE</small><strong>0337-3042493</strong></span><b>↗</b></a>
-        <a href="https://github.com/hassanrehan488" target="_blank" rel="noopener"><span class="contact-icon">⌘</span><span><small>GITHUB</small><strong>github.com/hassanrehan488</strong></span><b>↗</b></a>
-        <a href="https://linkedin.com/in/muhammad-hassan-rehan-b06a6a420" target="_blank" rel="noopener"><span class="contact-icon">in</span><span><small>LINKEDIN</small><strong>Connect with me</strong></span><b>↗</b></a>
-      </div>
-    </div></section>
-  </main>
-  <footer class="footer container"><a class="logo" href="#home">HR<span>.</span></a><p>Designed & built with care by M. Hassan Rehan.</p><a href="assets/M_Hassan_Rehan_Resume_Updated.pdf" target="_blank">View CV ↗</a><span>© <span id="year"></span></span></footer>
-  <script src="script.js"></script>
+<script>
+(function(){
+  var b=document.getElementById('menu'),l=document.getElementById('links');
+  b.addEventListener('click',function(){var o=l.classList.toggle('open');b.setAttribute('aria-expanded',o)});
+  l.addEventListener('click',function(e){if(e.target.tagName==='A'){l.classList.remove('open');b.setAttribute('aria-expanded','false')}});
+  document.getElementById('yr').textContent=new Date().getFullYear();
+})();
+</script>
 </body>
 </html>
